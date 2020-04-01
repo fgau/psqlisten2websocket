@@ -76,7 +76,7 @@ git clone https://github.com/fgau/psqlisten2websocket.git
 cd psqlisten2websocket
 make run
 
-open a new browser with [http://localhost:8080]()
+open a new browser with [http://localhost:8080](http://localhost:8080)
 then add new data to your database table und check the output on your console or browser.
 </pre>
 
