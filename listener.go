@@ -8,15 +8,8 @@ import (
 	"log"
 	"time"
 
+	"github.com/ilyakaznacheev/cleanenv"
 	"github.com/lib/pq"
-)
-
-const (
-	host     = "your host"
-	port     = 5432
-	user     = "your db username"
-	password = "your db password"
-	dbname   = "your db name"
 )
 
 func waitForNotification(l *pq.Listener) {
@@ -45,7 +38,22 @@ func waitForNotification(l *pq.Listener) {
 }
 
 func initDBListener() {
-	var conninfo = fmt.Sprintf("host=%s dbname=%s user=%s password=%s", host, dbname, user, password)
+	type ConfigDatabase struct {
+		Host     string `env:"HOST" env:"HOST"`
+		Port     string `env:"PORT" env:"PORT"`
+		User     string `env:"USER" env:"USER"`
+		Password string `env:"PASSWORD" env:"PASSWORD"`
+		DBName   string `env:"DBNAME" env:"DBNAME"`
+	}
+
+	var cfg ConfigDatabase
+
+	errReadenv := cleanenv.ReadConfig(".env", &cfg)
+	if errReadenv != nil {
+		log.Println("[error] - cannot read env file", errReadenv)
+	}
+
+	var conninfo = fmt.Sprintf("host=%s dbname=%s user=%s password=%s", cfg.Host, cfg.DBName, cfg.User, cfg.Password)
 
 	_, err := sql.Open("postgres", conninfo)
 	if err != nil {
