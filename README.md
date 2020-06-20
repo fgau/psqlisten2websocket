@@ -70,6 +70,16 @@ these message was broadcast to all registered clients as you can see here in *[l
 
 more examples for websocket handling you can find in the official [gorilla websocket repository](https://github.com/gorilla/websocket).
 
+### setup the environment config file .env
+the file [.env](https://github.com/fgau/psqlisten2websocket/blob/master/.env) holds all variables to connect to postgres database. adapt it for you.
+<pre>
+HOST=your host
+PORT=5432
+USER=your db username
+PASSWORD=your db password
+DBNAME=your db name
+</pre>
+
 ### run and build the server
 <pre>
 git clone https://github.com/fgau/psqlisten2websocket.git
